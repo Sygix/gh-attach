@@ -11,7 +11,7 @@ license: MIT
 ## Prerequisites
 
 ```sh
-gh extension list | grep -q 'gh attach' || gh extension install sudosubin/gh-attach
+gh extension list | grep -q 'gh attach' || gh extension install Sygix/gh-attach
 ```
 
 Supported images and videos on GitHub Cloud first use the active `gh` token, including legacy PATs, and need no browser session if the upload succeeds. Authentication or permission rejection falls back to matching browser cookies. Other file types, GHES, explicit browser/session options, and JSON fields `id` or `originalName` use the session-cookie flow directly. `gh` authentication selects the matching browser account. To choose a browser, add `--browser <name> --profile <name>`. For headless session-cookie use, set `GH_ATTACH_SESSION_TOKEN` to the bare `user_session` cookie value. Treat it as a full account credential; empty environment values are ignored.

@@ -2,12 +2,12 @@
 
 # gh-attach
 
-[![version](https://badgen.net/github/release/sudosubin/gh-attach?label=version)](https://github.com/sudosubin/gh-attach/releases)
-[![license](https://badgen.net/github/license/sudosubin/gh-attach?color=green)](./LICENSE)
-[![downloads](https://img.shields.io/github/downloads/sudosubin/gh-attach/total?color=green)](https://github.com/sudosubin/gh-attach/releases)
-[![skills.sh](https://skills.sh/b/sudosubin/gh-attach)](https://skills.sh/sudosubin/gh-attach)
+[![version](https://badgen.net/github/release/Sygix/gh-attach?label=version)](https://github.com/Sygix/gh-attach/releases)
+[![license](https://badgen.net/github/license/Sygix/gh-attach?color=green)](./LICENSE)
 
 A GitHub CLI extension that uploads and downloads GitHub attachments.
+
+Fork of [sudosubin/gh-attach](https://github.com/sudosubin/gh-attach) by Subin Kim (MIT). This fork never falls back to browser cookies on its own: cookies are read only when you ask for them.
 
 <a href="docs/assets/gh-attach-demo.webp">
   <img src="docs/assets/gh-attach-demo.webp" alt="gh-attach demo" width="800" />
@@ -18,7 +18,7 @@ A GitHub CLI extension that uploads and downloads GitHub attachments.
 ## Quick Start
 
 ```sh
-gh extension install sudosubin/gh-attach
+gh extension install Sygix/gh-attach
 gh attach ./image.png -R owner/repo
 ```
 
@@ -27,7 +27,7 @@ gh attach ./image.png -R owner/repo
 Requires [GitHub CLI](https://github.com/cli/cli#installation). Browser-cookie mode also requires `gh auth login`. Session-token mode does not when the repository ID is available from GitHub's page.
 
 ```sh
-gh extension install sudosubin/gh-attach
+gh extension install Sygix/gh-attach
 gh attach ./image.png -R owner/repo
 ```
 
@@ -93,7 +93,7 @@ If browser authentication still returns a sign-in or SSO page, the download fail
 `gh-attach` ships as an [agent skill](https://agentskills.io), so AI coding agents can attach screenshots or files to a PR or issue, embed them as Markdown, and download `user-attachments` URLs from a natural-language request like *"attach this screenshot to the PR"*.
 
 ```sh
-npx skills add sudosubin/gh-attach
+npx skills add Sygix/gh-attach
 ```
 
 The [Agent Skills standard](https://agentskills.io/clients) is supported by Claude Code, OpenAI Codex, Cursor, GitHub Copilot, and more.
