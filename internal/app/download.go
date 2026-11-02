@@ -59,14 +59,7 @@ func (s *Service) Download(ctx context.Context, req DownloadRequest) (io.ReadClo
 	}
 
 	token, _ := auth.TokenForHost(host)
-	body, downloadErr := s.download(ctx, attachmentURL, web.Session{UserAgent: bearerUserAgent}, token)
-	if downloadErr == nil {
-		return body, nil
-	}
-	if !shouldRetryWithCookies(downloadErr) {
-		return nil, downloadErr
-	}
-	return s.retryWithBrowserCookies(ctx, attachmentURL, host, req, downloadErr)
+	return s.download(ctx, attachmentURL, web.Session{UserAgent: bearerUserAgent}, token)
 }
 
 func (req DownloadRequest) cookieSources() cookieSourceInput {
@@ -102,24 +95,6 @@ func knownAuthHost(urlHost string) (string, bool) {
 		}
 	}
 	return "", false
-}
-
-func (s *Service) retryWithBrowserCookies(
-	ctx context.Context,
-	attachmentURL string,
-	host string,
-	req DownloadRequest,
-	firstErr error,
-) (io.ReadCloser, error) {
-	session, err := s.resolveBrowserSession(ctx, host, req.cookieSources(), req.Verbose)
-	if err != nil {
-		return nil, errors.Join(firstErr, fmt.Errorf("browser cookie fallback: %w", err))
-	}
-	body, err := s.download(ctx, attachmentURL, session, "")
-	if err != nil {
-		return nil, errors.Join(firstErr, fmt.Errorf("browser cookie fallback: %w", err))
-	}
-	return body, nil
 }
 
 func (s *Service) download(
@@ -178,8 +153,4 @@ func checkDownloadAuthentication(resp *http.Response) error {
 		io.Closer
 	}{Reader: reader, Closer: resp.Body}
 	return nil
-}
-
-func shouldRetryWithCookies(err error) bool {
-	return errors.Is(err, errDownloadAuthenticationRequired) || isAuthenticationError(err)
 }

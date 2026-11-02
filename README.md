@@ -72,7 +72,7 @@ image.png -> https://github.com/user-attachments/assets/550e8400-e29b-41d4-a716-
 
 Up to two files are uploaded concurrently, and per-file failures do not stop the remaining uploads. With `--json`, results are always returned as an array.
 
-GitHub Cloud media uploads use the active `gh` token, with browser-cookie fallback on authentication or permission errors. Supported formats are PNG, JPEG, GIF, WebP, SVG (up to 10 MiB), and MP4, MOV, WebM (up to 100 MiB; plan limits may be lower). GHES, other file types, explicit browser/session options, and JSON fields `id` or `originalName` use session cookies.
+GitHub Cloud media uploads use the active `gh` token only; an authentication or permission error is returned as is, with no browser-cookie fallback. Supported formats are PNG, JPEG, GIF, WebP, SVG (up to 10 MiB), and MP4, MOV, WebM (up to 100 MiB; plan limits may be lower). GHES, other file types and JSON fields `id` or `originalName` need session cookies, which are read only when requested with `--browser`, `--profile`, `--cookie-store-path` or `--session-token` / `GH_ATTACH_SESSION_TOKEN`. Downloads never retry with browser cookies on their own either.
 
 Embed uploaded URLs in an issue, PR, or comment and verify viewer access; unattached uploads may return 404 to others.
 

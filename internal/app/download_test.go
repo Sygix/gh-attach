@@ -171,19 +171,15 @@ func TestServiceDownload_BearerFallsBackToBrowserCookies(t *testing.T) {
 	}
 
 	// when
-	fallback, err := svc.Download(t.Context(), DownloadRequest{
+	_, err = svc.Download(t.Context(), DownloadRequest{
 		URL: server.URL + "/user-attachments/assets/id",
 	})
 	// then
-	if err != nil {
-		t.Fatalf("Download() with fallback error = %v", err)
+	if err == nil {
+		t.Fatal("Download() without explicit browser error = nil, want the bearer failure")
 	}
-	defer func() { _ = fallback.Close() }()
-	if _, err := io.ReadAll(fallback); err != nil {
-		t.Fatal(err)
-	}
-	if bearerRequests != 1 || cookieRequests != 2 {
-		t.Fatalf("requests = bearer %d, cookie %d, want 1 and 2", bearerRequests, cookieRequests)
+	if bearerRequests != 1 || cookieRequests != 1 {
+		t.Fatalf("requests = bearer %d, cookie %d, want 1 and 1", bearerRequests, cookieRequests)
 	}
 }
 

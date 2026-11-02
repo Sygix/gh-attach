@@ -31,6 +31,12 @@ type Request struct {
 	Verbose              bool
 }
 
+var errBrowserCookiesNotRequested = errors.New("browser cookies are only read on request: pass --browser, --profile, --cookie-store-path or --session-token")
+
+func (req Request) requestsBrowserCookies() bool {
+	return req.SessionToken != "" || req.UseBrowser || req.Browser != "" || req.Profile != "" || req.CookieStorePath != ""
+}
+
 // Service orchestrates GitHub user-attachment flows.
 type Service struct {
 	providers     map[cookies.Browser]browserprovider.BrowserProvider
@@ -94,34 +100,21 @@ func (s *Service) Run(ctx context.Context, req Request) ([]attachments.Asset, er
 		if _, err := attachments.StatUploadFile(filePath); err != nil {
 			return attachments.Asset{}, err
 		}
-		var firstErr error
 		if canAttemptTokenUpload(token) && attachments.SupportsTokenUpload(filePath) {
 			uploader, err := tokenUpload()
-			var asset attachments.Asset
-			if err == nil {
-				asset, err = uploader.Upload(ctx, filePath)
-			}
-			if err == nil {
-				return asset, nil
-			}
-			if ctx.Err() != nil || !isAuthenticationError(err) {
+			if err != nil {
 				return attachments.Asset{}, err
 			}
-			firstErr = fmt.Errorf("token upload: %w", err)
-			logf("%s: token authentication rejected; falling back to browser cookies\n", filePath)
+			return uploader.Upload(ctx, filePath)
+		}
+		if !req.requestsBrowserCookies() {
+			return attachments.Asset{}, errBrowserCookiesNotRequested
 		}
 		upload, err := cookieUpload()
-		if err == nil {
-			var asset attachments.Asset
-			asset, err = upload(filePath)
-			if err == nil {
-				return asset, nil
-			}
+		if err != nil {
+			return attachments.Asset{}, err
 		}
-		if firstErr != nil {
-			err = errors.Join(firstErr, fmt.Errorf("browser cookie fallback: %w", err))
-		}
-		return attachments.Asset{}, err
+		return upload(filePath)
 	})
 }
 

@@ -19,18 +19,19 @@ import (
 
 func TestServiceRun_UploadAuthentication(t *testing.T) {
 	tests := []struct {
-		name        string
-		status      int
-		headers     http.Header
-		wantCookies int
-		wantErr     bool
-		mixed       bool
+		name             string
+		status           int
+		headers          http.Header
+		wantCookies      int
+		wantErr          bool
+		mixed            bool
+		wantNotRequested bool
 	}{
 		{name: "token succeeds", status: http.StatusCreated},
-		{name: "mixed files", status: http.StatusCreated, wantCookies: 1, mixed: true},
-		{name: "unauthorized falls back", status: http.StatusUnauthorized, wantCookies: 1},
-		{name: "forbidden falls back", status: http.StatusForbidden, wantCookies: 1},
-		{name: "not found falls back", status: http.StatusNotFound, wantCookies: 1},
+		{name: "mixed files need explicit cookies", status: http.StatusCreated, mixed: true, wantNotRequested: true},
+		{name: "unauthorized stops", status: http.StatusUnauthorized, wantErr: true},
+		{name: "forbidden stops", status: http.StatusForbidden, wantErr: true},
+		{name: "not found stops", status: http.StatusNotFound, wantErr: true},
 		{name: "rate limited forbidden stops", status: http.StatusForbidden, headers: http.Header{"X-Ratelimit-Remaining": {"0"}}, wantErr: true},
 		{name: "retry after stops", status: http.StatusForbidden, headers: http.Header{"Retry-After": {"60"}}, wantErr: true},
 		{name: "too many requests stops", status: http.StatusTooManyRequests, wantErr: true},
@@ -85,6 +86,12 @@ func TestServiceRun_UploadAuthentication(t *testing.T) {
 			assets, err := svc.Run(t.Context(), Request{FilePaths: files, Repo: "github.com/owner/repo"})
 			if tokenRequests.Load() != 1 || cookieRequests.Load() != int32(tt.wantCookies) {
 				t.Errorf("requests = token %d, cookie %d; want 1, %d", tokenRequests.Load(), cookieRequests.Load(), tt.wantCookies)
+			}
+			if tt.wantNotRequested {
+				if !errors.Is(err, errBrowserCookiesNotRequested) {
+					t.Fatalf("Run() error = %v; want %v", err, errBrowserCookiesNotRequested)
+				}
+				return
 			}
 			if tt.wantErr {
 				httpErr, ok := errors.AsType[*api.HTTPError](err)
