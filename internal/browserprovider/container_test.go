@@ -6,8 +6,8 @@ import (
 	"slices"
 	"testing"
 
+	"github.com/Sygix/gh-attach/internal/cookies"
 	libsweetcookie "github.com/steipete/sweetcookie"
-	"github.com/sudosubin/gh-attach/internal/cookies"
 )
 
 func TestContainerMatches(t *testing.T) {

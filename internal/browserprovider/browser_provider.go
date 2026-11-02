@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"runtime"
 
-	"github.com/sudosubin/gh-attach/internal/cookies"
+	"github.com/Sygix/gh-attach/internal/cookies"
 )
 
 type BrowserSession struct {

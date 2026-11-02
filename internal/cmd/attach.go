@@ -7,9 +7,9 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/Sygix/gh-attach/internal/app"
+	"github.com/Sygix/gh-attach/internal/cookies"
 	"github.com/spf13/cobra"
-	"github.com/sudosubin/gh-attach/internal/app"
-	"github.com/sudosubin/gh-attach/internal/cookies"
 )
 
 type AttachOptions struct {

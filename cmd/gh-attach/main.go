@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sudosubin/gh-attach/internal/cmd"
+	"github.com/Sygix/gh-attach/internal/cmd"
 )
 
 func main() {

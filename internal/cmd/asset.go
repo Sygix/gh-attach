@@ -8,10 +8,10 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/Sygix/gh-attach/internal/github/attachments"
 	ghjq "github.com/cli/go-gh/v2/pkg/jq"
 	ghtemplate "github.com/cli/go-gh/v2/pkg/template"
 	ghterm "github.com/cli/go-gh/v2/pkg/term"
-	"github.com/sudosubin/gh-attach/internal/github/attachments"
 )
 
 var availableAssetFields = []string{

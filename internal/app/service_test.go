@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Sygix/gh-attach/internal/github/attachments"
 	"github.com/cli/go-gh/v2/pkg/api"
-	"github.com/sudosubin/gh-attach/internal/github/attachments"
 )
 
 func TestServiceRun_UploadAuthentication(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/sudosubin/gh-attach/internal/cookies"
-	"github.com/sudosubin/gh-attach/internal/github/web"
+	"github.com/Sygix/gh-attach/internal/cookies"
+	"github.com/Sygix/gh-attach/internal/github/web"
 )
 
 // SessionResolver hides the login-then-cookie-match coupling behind a single "give me a session" call.

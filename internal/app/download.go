@@ -11,10 +11,10 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/Sygix/gh-attach/internal/github/attachments"
+	"github.com/Sygix/gh-attach/internal/github/web"
 	"github.com/cli/go-gh/v2/pkg/api"
 	"github.com/cli/go-gh/v2/pkg/auth"
-	"github.com/sudosubin/gh-attach/internal/github/attachments"
-	"github.com/sudosubin/gh-attach/internal/github/web"
 )
 
 const bearerUserAgent = "gh-attach"

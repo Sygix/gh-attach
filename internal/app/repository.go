@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/Sygix/gh-attach/internal/github/rest"
 	"github.com/cli/go-gh/v2/pkg/repository"
-	"github.com/sudosubin/gh-attach/internal/github/rest"
 )
 
 type apiRepositoryResolver interface {

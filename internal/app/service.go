@@ -10,12 +10,12 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/Sygix/gh-attach/internal/browserprovider"
+	"github.com/Sygix/gh-attach/internal/cookies"
+	"github.com/Sygix/gh-attach/internal/github/attachments"
+	"github.com/Sygix/gh-attach/internal/github/rest"
+	"github.com/Sygix/gh-attach/internal/github/web"
 	"github.com/cli/go-gh/v2/pkg/auth"
-	"github.com/sudosubin/gh-attach/internal/browserprovider"
-	"github.com/sudosubin/gh-attach/internal/cookies"
-	"github.com/sudosubin/gh-attach/internal/github/attachments"
-	"github.com/sudosubin/gh-attach/internal/github/rest"
-	"github.com/sudosubin/gh-attach/internal/github/web"
 	"golang.org/x/sync/errgroup"
 )
 

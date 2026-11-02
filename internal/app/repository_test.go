@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sudosubin/gh-attach/internal/github/rest"
+	"github.com/Sygix/gh-attach/internal/github/rest"
 )
 
 type fakeAPIRepository struct {

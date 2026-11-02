@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/sudosubin/gh-attach/internal/cookies"
+	"github.com/Sygix/gh-attach/internal/cookies"
 )
 
 func TestNewDefaultRegistry(t *testing.T) {

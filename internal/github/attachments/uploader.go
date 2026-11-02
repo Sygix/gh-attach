@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/Sygix/gh-attach/internal/github/web"
 	"github.com/cli/go-gh/v2/pkg/auth"
-	"github.com/sudosubin/gh-attach/internal/github/web"
 )
 
 // Uploader carries the shared session context for GitHub user-attachment uploads.

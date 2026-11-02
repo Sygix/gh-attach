@@ -1,4 +1,4 @@
-module github.com/sudosubin/gh-attach
+module github.com/Sygix/gh-attach
 
 go 1.27.2
 

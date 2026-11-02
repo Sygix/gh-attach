@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sudosubin/gh-attach/internal/cookies"
+	"github.com/Sygix/gh-attach/internal/cookies"
 )
 
 func TestUserAgent_ReadsInstalledVersion(t *testing.T) {

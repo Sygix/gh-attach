@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sudosubin/gh-attach/internal/config"
-	"github.com/sudosubin/gh-attach/internal/cookies"
+	"github.com/Sygix/gh-attach/internal/config"
+	"github.com/Sygix/gh-attach/internal/cookies"
 )
 
 type cookieSourceInput struct {
